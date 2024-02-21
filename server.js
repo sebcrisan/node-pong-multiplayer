@@ -1,5 +1,10 @@
 const http = require("http");
-const io = require("socket.io");
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
 
 const apiServer = require("./api");
 const httpServer = http.createServer(apiServer);
