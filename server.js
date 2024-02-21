@@ -28,7 +28,7 @@ io.on("connection", (socket) => {
 
     readyPlayerCount++;
 
-    if (readyPlayerCount == 2) {
+    if (readyPlayerCount % 2 === 0) {
       io.emit("startGame", socket.id);
     }
   });
@@ -39,5 +39,11 @@ io.on("connection", (socket) => {
 
   socket.on("ballMove", (ballData) => {
     socket.broadcast.emit("ballMove", ballData);
+  });
+
+  socket.on("dicsonnect", (reason) => {
+    console.log(
+      `Client with socket id ${socket.id} disconnected with reason: ${reason}`
+    );
   });
 });
